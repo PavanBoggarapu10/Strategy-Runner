@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Crypto Strategy Tester</title>
+    <meta name="description" content="Advanced cryptocurrency trading strategy tester and backtesting simulator supporting multiple coins, quote pairs, timeframes, and quantitative strategy metrics." />
+    <meta property="og:title" content="Crypto Strategy Tester" />
+    <meta property="og:description" content="Advanced cryptocurrency trading strategy tester and backtesting simulator supporting multiple coins, quote pairs, timeframes, and quantitative strategy metrics." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script>
+      // Prevent multi-wallet browser extension conflicts (e.g. MetaMask, Phantom, Coinbase Wallet "Cannot redefine property: ethereum")
+      (function() {
+        // Suppress and swallow browser extension errors for 'Cannot redefine property: ethereum'
+        window.addEventListener('error', function (event) {
+          if (event && event.message && event.message.includes('ethereum')) {
+            event.stopImmediatePropagation();
+            event.preventDefault();
+            return true;
+          }
+        }, true);
+
+        window.addEventListener('unhandledrejection', function (event) {
+          if (event && event.reason && String(event.reason).includes('ethereum')) {
+            event.stopImmediatePropagation();
+            event.preventDefault();
+          }
+        }, true);
+
+        // Pre-create a configurable proxy descriptor for window.ethereum so multiple wallet extensions do not crash on defineProperty
+        try {
+          var currentEthereum = window.ethereum;
+          var desc = Object.getOwnPropertyDescriptor(window, 'ethereum');
+          if (!desc || desc.configurable) {
+            Object.defineProperty(window, 'ethereum', {
+              configurable: true,
+              enumerable: true,
+              get: function() {
+                return currentEthereum;
+              },
+              set: function(val) {
+                currentEthereum = val;
+              }
+            });
+          }
+        } catch (e) {
+          // Ignore
+        }
+      })();
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  </head>
+  <body class="bg-slate-950 text-slate-100 antialiased selection:bg-emerald-500/20 selection:text-emerald-300">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+

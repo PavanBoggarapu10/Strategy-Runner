@@ -1,0 +1,8 @@
+{
+  "name": "Crypto Strategy Tester",
+  "description": "Advanced cryptocurrency trading strategy tester and backtesting simulator supporting multiple coins, quote pairs, timeframes, and quantitative strategy metrics.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
